@@ -9,6 +9,7 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+    restart: always
 
   backend:
     image: julverikk/kittygram_backend:latest
@@ -16,6 +17,9 @@ services:
     volumes:
       - static:/backend_static
       - media:/app/media
+    restart: always
+    depends_on:
+      - db
 
   frontend:
     image: julverikk/kittygram_frontend:latest
@@ -31,3 +35,4 @@ services:
       - media:/media
     ports:
       - 9000:80
+    restart: always
